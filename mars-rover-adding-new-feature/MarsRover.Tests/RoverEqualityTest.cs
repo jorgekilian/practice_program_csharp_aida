@@ -1,21 +1,21 @@
-using Xunit;
+using NUnit.Framework;
 
 namespace MarsRover.Tests
 {
     public class RoverEqualityTest
     {
-        [Fact]
-        public void EqualRovers()
+        [Test]
+        public void Equal_Rovers()
         {
-            Assert.Equal(new Rover(1, 1, "N"), new Rover(1, 1, "N"));
+            Assert.That(new Rover(1, 1, "N"), Is.EqualTo(new Rover(1, 1, "N")));
         }
 
-        [Fact]
-        public void NotEqualRovers()
+        [Test]
+        public void Not_Equal_Rovers()
         {
-            Assert.NotEqual(new Rover(1, 1, "N"), new Rover(1, 1, "S"));
-            Assert.NotEqual(new Rover(1, 1, "N"), new Rover(1, 2, "N"));
-            Assert.NotEqual(new Rover(1, 1, "N"), new Rover(0, 1, "N"));
+            Assert.That(new Rover(1, 1, "N"), Is.Not.EqualTo(new Rover(1, 1, "S")));
+            Assert.That(new Rover(1, 1, "N"), Is.Not.EqualTo(new Rover(1, 2, "N")));
+            Assert.That(new Rover(1, 1, "N"), Is.Not.EqualTo(new Rover(0, 1, "N")));
         }
     }
 }

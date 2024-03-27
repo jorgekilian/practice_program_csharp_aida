@@ -1,86 +1,86 @@
-using Xunit;
+using NUnit.Framework;
 
 namespace MarsRover.Tests;
 
 public class RoverPositionTests
 {
-    [Fact]
-    public void FacingNorthMoveForward()
+    [Test]
+    public void Facing_North_Move_Forward()
     {
         var rover = new Rover(0, 0, "N");
 
         rover.Receive("f");
 
-        Assert.Equal(new Rover(0, 1, "N"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(0, 1, "N")));
     }
 
-    [Fact]
-    public void FacingNorthMoveBackward()
+    [Test]
+    public void Facing_North_Move_Backward()
     {
         var rover = new Rover(0, 0, "N");
 
         rover.Receive("b");
 
-        Assert.Equal(new Rover(0, -1, "N"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(0, -1, "N")));
     }
 
-    [Fact]
-    public void FacingSouthMoveForward()
+    [Test]
+    public void Facing_South_Move_Forward()
     {
         var rover = new Rover(0, 0, "S");
 
         rover.Receive("f");
 
-        Assert.Equal(new Rover(0, -1, "S"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(0, -1, "S")));
     }
 
-    [Fact]
-    public void FacingSouthMoveBackward()
+    [Test]
+    public void Facing_South_Move_Backward()
     {
         var rover = new Rover(0, 0, "S");
 
         rover.Receive("b");
 
-        Assert.Equal(new Rover(0, 1, "S"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(0, 1, "S")));
     }
 
-    [Fact]
-    public void FacingWestMoveForward()
+    [Test]
+    public void Facing_West_Move_Forward()
     {
         var rover = new Rover(0, 0, "W");
 
         rover.Receive("f");
 
-        Assert.Equal(new Rover(-1, 0, "W"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(-1, 0, "W")));
     }
 
-    [Fact]
-    public void FacingWestMoveBackward()
+    [Test]
+    public void Facing_West_Move_Backward()
     {
         var rover = new Rover(0, 0, "W");
 
         rover.Receive("b");
 
-        Assert.Equal(new Rover(1, 0, "W"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(1, 0, "W")));
     }
 
-    [Fact]
-    public void FacingEastMoveForward()
+    [Test]
+    public void Facing_East_Move_Forward()
     {
         var rover = new Rover(0, 0, "E");
 
         rover.Receive("f");
 
-        Assert.Equal(new Rover(1, 0, "E"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(1, 0, "E")));
     }
 
-    [Fact]
-    public void FacingEastMoveBackward()
+    [Test]
+    public void Facing_East_Move_Backward()
     {
         var rover = new Rover(0, 0, "E");
 
         rover.Receive("b");
 
-        Assert.Equal(new Rover(-1, 0, "E"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(-1, 0, "E")));
     }
 }

@@ -1,36 +1,36 @@
-using Xunit;
+using NUnit.Framework;
 
 namespace MarsRover.Tests;
 
 public class RoverReceivingCommandsListTests
 {
-    [Fact]
-    public void NoCommands()
+    [Test]
+    public void No_Commands()
     {
         var rover = new Rover(0, 0, "N");
 
         rover.Receive("");
 
-        Assert.Equal(new Rover(0, 0, "N"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(0, 0, "N")));
     }
 
-    [Fact]
-    public void TwoCommands()
+    [Test]
+    public void Two_Commands()
     {
         var rover = new Rover(0, 0, "N");
 
         rover.Receive("lf");
 
-        Assert.Equal(new Rover(-1, 0, "W"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(-1, 0, "W")));
     }
 
-    [Fact]
-    public void ManyCommands()
+    [Test]
+    public void Many_Commands()
     {
         var rover = new Rover(0, 0, "N");
 
         rover.Receive("ffrbbrfflff");
 
-        Assert.Equal(new Rover(0, 0, "E"), rover);
+        Assert.That(rover, Is.EqualTo(new Rover(0, 0, "E")));
     }
 }
