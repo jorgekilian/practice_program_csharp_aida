@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using CoffeeMachineApp.core;
 using CoffeeMachineApp.infrastructure.notifiers;
+using CoffeeMachineApp.Tests.core;
 using NSubstitute;
 
 namespace CoffeeMachineApp.Tests.infrastructure.notifiers;

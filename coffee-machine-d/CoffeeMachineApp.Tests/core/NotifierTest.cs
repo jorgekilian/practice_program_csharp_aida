@@ -3,7 +3,7 @@ using CoffeeMachineApp.core;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace CoffeeMachineApp.Tests.infrastructure.notifiers;
+namespace CoffeeMachineApp.Tests.core;
 
 public abstract class NotifierTest
 {
