@@ -1,14 +1,14 @@
 using System.Globalization;
 using CoffeeMachineApp.core;
 
-namespace CoffeeMachineApp.infrastructure;
+namespace CoffeeMachineApp.infrastructure.notifiers;
 
-public class CultureBasedMessageNotificator : MessageNotificator
+public class CultureBasedNotifier : Notifier
 {
     private readonly CultureInfo _messageCulture;
     private readonly DrinkMakerDriver _drinkMakerDriver;
 
-    public CultureBasedMessageNotificator(CultureInfo messageCulture, DrinkMakerDriver drinkMakerDriver)
+    public CultureBasedNotifier(CultureInfo messageCulture, DrinkMakerDriver drinkMakerDriver)
     {
         _messageCulture = messageCulture;
         _drinkMakerDriver = drinkMakerDriver;
@@ -50,7 +50,7 @@ public class CultureBasedMessageNotificator : MessageNotificator
     {
         return _messageCulture.Name switch
         {
-            "en-GB" => "You missing {0}",
+            "en-GB" => "You're missing {0}",
             "es-ES" => "Te faltan {0}",
             "es-PR" => "Te faltan {0}",
             _ => string.Empty

@@ -6,16 +6,16 @@ public class CoffeeMachine
 {
     private readonly DrinkMakerDriver _drinkMakerDriver;
     private readonly Dictionary<DrinkType, decimal> _prices;
-    private readonly MessageNotificator _messageNotificator;
+    private readonly Notifier _notifier;
     private Order _order;
     private decimal _totalMoney;
 
     public CoffeeMachine(DrinkMakerDriver drinkMakerDriver, Dictionary<DrinkType, decimal> prices,
-        MessageNotificator messageNotificator)
+        Notifier notifier)
     {
         _drinkMakerDriver = drinkMakerDriver;
         _prices = prices;
-        _messageNotificator = messageNotificator;
+        _notifier = notifier;
         InitializeState();
     }
 
@@ -48,7 +48,7 @@ public class CoffeeMachine
     {
         if (NoDrinkWasSelected())
         {
-            _messageNotificator.NotifySelectDrink();
+            _notifier.NotifySelectDrink();
             return;
         }
 
@@ -59,7 +59,7 @@ public class CoffeeMachine
         }
         else
         {
-            _messageNotificator.NotifyMissingPrice(ComputeMissingMoney());
+            _notifier.NotifyMissingPrice(ComputeMissingMoney());
         }
     }
 

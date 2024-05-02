@@ -1,6 +1,6 @@
 ﻿namespace CoffeeMachineApp.core;
 
-public interface MessageNotificator
+public interface Notifier
 {
     void NotifyMissingPrice(decimal missingPrice);
     void NotifySelectDrink();
