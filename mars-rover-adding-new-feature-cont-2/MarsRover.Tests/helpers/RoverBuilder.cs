@@ -4,10 +4,10 @@ namespace MarsRover.Tests;
 
 public class RoverBuilder
 {
+    private readonly CommunicationProtocol _communicationProtocol;
+    private string _direction;
     private int _x;
     private int _y;
-    private string _direction;
-    private CommunicationProtocol _communicationProtocol;
 
     private RoverBuilder(int x, int y, string direction, CommunicationProtocol communicationProtocol)
     {
@@ -37,7 +37,7 @@ public class RoverBuilder
 
     public static RoverBuilder ANASARover()
     {
-        return new RoverBuilder(0,0,"N", new NasaCommunicationProtocol());
+        return new RoverBuilder(0, 0, "N", new NasaCommunicationProtocol());
     }
 
     public static RoverBuilder AnESARover()

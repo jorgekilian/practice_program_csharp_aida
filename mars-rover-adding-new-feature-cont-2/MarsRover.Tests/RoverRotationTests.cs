@@ -6,7 +6,8 @@ namespace MarsRover.Tests;
 public class RoverRotationTests
 {
     [Test]
-    public void Facing_North_Rotate_Left() {
+    public void Facing_North_Rotate_Left()
+    {
         var rover = ANASARover().Facing("N").Build();
 
         rover.Receive("l");

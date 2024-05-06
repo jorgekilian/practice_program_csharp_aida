@@ -8,7 +8,7 @@ public class RoverPositionTests
     [Test]
     public void Facing_North_Move_Forward()
     {
-        var rover = ANASARover().WithCoordinates(0,0).Facing("N").Build();
+        var rover = ANASARover().WithCoordinates(0, 0).Facing("N").Build();
 
         rover.Receive("f");
 

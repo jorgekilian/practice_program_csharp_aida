@@ -8,25 +8,22 @@ public class EsaCommunicationProtocol : CommunicationProtocol
 {
     public List<Command> CreateCommands(string commandsSequence, int displacement)
     {
-        return commandsSequence.Select(commandRepresentation => CreateCommand(displacement, commandRepresentation)).ToList();
+        return commandsSequence.Select(commandRepresentation => CreateCommand(displacement, commandRepresentation))
+            .ToList();
     }
 
     private Command CreateCommand(int displacement, char commandRepresentation)
     {
         Command command;
-        if (commandRepresentation == 'b') {
+        if (commandRepresentation == 'b')
             command = new MovementForward(displacement);
-        }
-        else if (commandRepresentation == 'x') {
+        else if (commandRepresentation == 'x')
             command = new MovementBackward(displacement);
-        }
 
-        else if (commandRepresentation == 'f') {
+        else if (commandRepresentation == 'f')
             command = new RotationLeft();
-        }
-        else {
+        else
             command = new RotationRight();
-        }
 
         return command;
     }

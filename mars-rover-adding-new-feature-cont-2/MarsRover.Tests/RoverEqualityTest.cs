@@ -15,7 +15,9 @@ public class RoverEqualityTest
     public void Not_Equal_Rovers()
     {
         Assert.That(ANASARover().Facing("N").Build(), Is.Not.EqualTo(ANASARover().Facing("S").Build()));
-        Assert.That(ANASARover().WithCoordinates(x: 1, y:1).Build(), Is.Not.EqualTo(ANASARover().WithCoordinates(x: 1, y: 2).Build()));
-        Assert.That(ANASARover().WithCoordinates(x: 0, y: 1).Build(), Is.Not.EqualTo(ANASARover().WithCoordinates(x: 2, y: 1).Build()));
+        Assert.That(ANASARover().WithCoordinates(1, 1).Build(),
+            Is.Not.EqualTo(ANASARover().WithCoordinates(1, 2).Build()));
+        Assert.That(ANASARover().WithCoordinates(0, 1).Build(),
+            Is.Not.EqualTo(ANASARover().WithCoordinates(2, 1).Build()));
     }
 }
