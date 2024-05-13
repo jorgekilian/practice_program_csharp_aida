@@ -54,4 +54,9 @@ public class RoverBuilder
     {
         return new RoverBuilder(1, 1, "N", new JaxaCommunicationProtocol());
     }
+
+
+    public static RoverBuilder JointRover() {
+        return new RoverBuilder(1, 1, "N", new JointCommunicationProtocol());
+    }
 }
