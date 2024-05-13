@@ -1,12 +1,27 @@
 ﻿using System.Collections.Generic;
-using MarsRover.communicationProtocols.commandExtractor;
 using static MarsRover.communicationProtocols.SequenceBasedCommunicationProtocol;
 
 namespace MarsRover.communicationProtocols;
 
-public class JointCommunicationProtocol : CommunicationProtocol {
-    public virtual List<Command> CreateCommands(string commandsSequence, int displacement) {
-        if (commandsSequence == string.Empty) {
+public class JointCommunicationProtocol : CommunicationProtocol
+{
+    private Dictionary<string, CommunicationProtocol> _protocols;
+
+    public JointCommunicationProtocol()
+    {
+        _protocols = new Dictionary<string, CommunicationProtocol>()
+        {
+            {"*", EsaCommunicationProtocol() },
+            {"%", CnsaCommunicationProtocol() },
+            {"+", JaxaCommunicationProtocol() },
+            {"$", NasaCommunicationProtocol() }
+        };
+    }
+
+    public virtual List<Command> CreateCommands(string commandsSequence, int displacement)
+    {
+        if (commandsSequence == string.Empty)
+        {
             return new List<Command>();
         }
         var protocolIdentifier = commandsSequence.Substring(0, 1);
@@ -16,21 +31,11 @@ public class JointCommunicationProtocol : CommunicationProtocol {
 
     }
 
-    private CommunicationProtocol IdentifyCommunicationProtocol(string protocolIdentifier) {
-        if (protocolIdentifier == "*") {
-            return EsaCommunicationProtocol();
-        }
-
-        if (protocolIdentifier == "%") {
-            return CnsaCommunicationProtocol();
-        }
-
-        if (protocolIdentifier == "+") {
-            return JaxaCommunicationProtocol();
-        }
-
-        if (protocolIdentifier == "$") {
-            return NasaCommunicationProtocol();
+    private CommunicationProtocol IdentifyCommunicationProtocol(string protocolIdentifier)
+    {
+        if (_protocols.TryGetValue(protocolIdentifier, out var protocol))
+        {
+            return protocol;
         }
 
         return new UnknownProtocol();
