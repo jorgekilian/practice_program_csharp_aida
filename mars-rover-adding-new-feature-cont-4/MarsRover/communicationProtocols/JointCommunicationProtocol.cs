@@ -17,16 +17,24 @@ public class JointCommunicationProtocol : CommunicationProtocol {
     }
 
     private CommunicationProtocol IdentifyCommunicationProtocol(string protocolIdentifier) {
-        CommunicationProtocol communicationProtocol;
-
         if (protocolIdentifier == "*") {
-            communicationProtocol = new EsaCommunicationProtocol();
-        }
-        else {
-            communicationProtocol = new CnsaCommunicationProtocol();
+            return new EsaCommunicationProtocol();
         }
 
-        return communicationProtocol;
+        if (protocolIdentifier == "%") {
+            return new CnsaCommunicationProtocol();
+        }
+
+        if (protocolIdentifier == "+") {
+            return new JaxaCommunicationProtocol();
+        }
+
+        if (protocolIdentifier == "$") {
+            return new NasaCommunicationProtocol();
+        }
+
+        return new UnknownProtocol();
+
     }
 
     protected override Command CreateCommand(int displacement, string commandRepresentation) {
