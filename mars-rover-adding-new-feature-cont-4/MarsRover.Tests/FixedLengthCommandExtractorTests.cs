@@ -1,6 +1,7 @@
-using System.Collections.Generic;
+using MarsRover.communicationProtocols;
 using MarsRover.communicationProtocols.commandExtractor;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace MarsRover.Tests;
 
@@ -27,7 +28,7 @@ public class FixedLengthCommandExtractorTest
         Assert.That(result, Is.EqualTo(new List<string> { "ab", "c" }));
     }
 
-    private static FixedLengthCommandExtractor CreateCommandExtractorForCommandsOfSize(uint size)
+    private static CommandExtractor CreateCommandExtractorForCommandsOfSize(uint size)
     {
         return new FixedLengthCommandExtractor(size);
     }
