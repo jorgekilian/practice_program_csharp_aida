@@ -1,14 +1,6 @@
 using MarsRover.commands;
-using MarsRover.communicationProtocols.commandExtractor;
 
 namespace MarsRover.communicationProtocols;
-
-public class JaxaCommunicationProtocol : CommunicationProtocol
-{
-    public JaxaCommunicationProtocol() : base(new JaxaCommandExtractor(), new JaxaCommandMapper())
-    {
-    }
-}
 
 public class JaxaCommandMapper : CommandMapper
 {

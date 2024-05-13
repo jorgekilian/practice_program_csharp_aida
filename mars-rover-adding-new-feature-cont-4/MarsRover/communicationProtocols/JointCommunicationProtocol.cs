@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using MarsRover.communicationProtocols.commandExtractor;
+using static MarsRover.communicationProtocols.SequenceBasedCommunicationProtocol;
 
 namespace MarsRover.communicationProtocols;
 
 public class JointCommunicationProtocol : CommunicationProtocol {
-    public JointCommunicationProtocol() : base(null, null) { }
-    public override List<Command> CreateCommands(string commandsSequence, int displacement) {
+    public virtual List<Command> CreateCommands(string commandsSequence, int displacement) {
         if (commandsSequence == string.Empty) {
             return new List<Command>();
         }
@@ -17,22 +18,21 @@ public class JointCommunicationProtocol : CommunicationProtocol {
 
     private CommunicationProtocol IdentifyCommunicationProtocol(string protocolIdentifier) {
         if (protocolIdentifier == "*") {
-            return new EsaCommunicationProtocol();
+            return EsaCommunicationProtocol();
         }
 
         if (protocolIdentifier == "%") {
-            return new CnsaCommunicationProtocol();
+            return CnsaCommunicationProtocol();
         }
 
         if (protocolIdentifier == "+") {
-            return new JaxaCommunicationProtocol();
+            return JaxaCommunicationProtocol();
         }
 
         if (protocolIdentifier == "$") {
-            return new NasaCommunicationProtocol();
+            return NasaCommunicationProtocol();
         }
 
         return new UnknownProtocol();
-
     }
 }
