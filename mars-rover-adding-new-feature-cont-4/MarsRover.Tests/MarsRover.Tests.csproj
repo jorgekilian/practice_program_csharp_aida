@@ -7,12 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0-preview-24080-01"/>
-        <PackageReference Include="NUnit" Version="4.1.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0-preview-24080-01" />
+        <PackageReference Include="NUnit" Version="4.1.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\MarsRover\MarsRover.csproj"/>
+        <ProjectReference Include="..\MarsRover\MarsRover.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="communicationProtocols\commandExtractor\" />
     </ItemGroup>
 
 </Project>

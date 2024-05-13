@@ -1,9 +1,9 @@
+using System.Collections.Generic;
 using MarsRover.communicationProtocols;
 using MarsRover.communicationProtocols.commandExtractor;
 using NUnit.Framework;
-using System.Collections.Generic;
 
-namespace MarsRover.Tests;
+namespace MarsRover.Tests.communicationProtocols.commandExtractor;
 
 [TestFixture]
 public class FixedLengthCommandExtractorTest

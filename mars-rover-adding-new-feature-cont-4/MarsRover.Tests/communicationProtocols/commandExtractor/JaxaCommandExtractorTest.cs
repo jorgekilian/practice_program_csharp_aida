@@ -3,7 +3,7 @@ using MarsRover.communicationProtocols;
 using MarsRover.communicationProtocols.commandExtractor;
 using NUnit.Framework;
 
-namespace MarsRover.Tests;
+namespace MarsRover.Tests.communicationProtocols.commandExtractor;
 
 public class JaxaCommandExtractorTest
 {

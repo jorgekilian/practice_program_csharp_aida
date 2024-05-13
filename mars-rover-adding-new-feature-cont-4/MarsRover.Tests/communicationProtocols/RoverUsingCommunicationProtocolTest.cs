@@ -1,7 +1,7 @@
 using MarsRover.Tests.helpers;
 using NUnit.Framework;
 
-namespace MarsRover.Tests;
+namespace MarsRover.Tests.communicationProtocols;
 
 public abstract class RoverUsingCommunicationProtocolTest
 {

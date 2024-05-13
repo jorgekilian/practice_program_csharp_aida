@@ -1,32 +1,32 @@
 using MarsRover.Tests.helpers;
 using static MarsRover.Tests.helpers.RoverBuilder;
 
-namespace MarsRover.Tests;
+namespace MarsRover.Tests.communicationProtocols;
 
-public class RoverUsingJaxaCommunicationProtocolTest : RoverUsingCommunicationProtocolTest
+public class RoverUsingEsaCommunicationProtocolTest : RoverUsingCommunicationProtocolTest
 {
     protected override RoverBuilder GetRoverBuilder()
     {
-        return JaxaRover();
+        return EsaRover();
     }
 
     protected override string GetForwardCommandRepresentation()
     {
-        return "del";
+        return "b";
     }
 
     protected override string GetBackwardCommandRepresentation()
     {
-        return "at";
+        return "x";
     }
 
     protected override string GetRotateRightCommandRepresentation()
     {
-        return "der";
+        return "l";
     }
 
     protected override string GetRotateLeftCommandRepresentation()
     {
-        return "iz";
+        return "f";
     }
 }

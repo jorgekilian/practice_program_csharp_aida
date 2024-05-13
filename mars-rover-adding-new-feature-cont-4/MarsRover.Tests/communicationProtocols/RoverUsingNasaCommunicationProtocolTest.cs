@@ -1,6 +1,6 @@
 using MarsRover.Tests.helpers;
 
-namespace MarsRover.Tests;
+namespace MarsRover.Tests.communicationProtocols;
 
 public class RoverUsingNasaCommunicationProtocolTest : RoverUsingCommunicationProtocolTest
 {
