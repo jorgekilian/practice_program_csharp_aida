@@ -1,6 +1,6 @@
 using MarsRover.commands;
 
-namespace MarsRover.communicationProtocols;
+namespace MarsRover.communicationProtocols.commandMappers;
 
 public class NasaCommandMapper : CommandMapper
 {

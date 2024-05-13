@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MarsRover.communicationProtocols.commandExtractor;
+using MarsRover.communicationProtocols.commandMappers;
 
 namespace MarsRover.communicationProtocols;
 
