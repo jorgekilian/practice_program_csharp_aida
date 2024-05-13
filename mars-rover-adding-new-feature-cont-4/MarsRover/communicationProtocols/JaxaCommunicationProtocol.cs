@@ -5,11 +5,25 @@ namespace MarsRover.communicationProtocols;
 
 public class JaxaCommunicationProtocol : CommunicationProtocol
 {
-    public JaxaCommunicationProtocol() : base(new JaxaCommandExtractor())
+    public JaxaCommunicationProtocol() : base(new JaxaCommandExtractor(), new JaxaCommandMapper())
     {
     }
 
     protected override Command CreateCommand(int displacement, string commandRepresentation)
+    {
+        if (commandRepresentation == "at") return new MovementBackward(displacement);
+
+        if (commandRepresentation == "iz") return new RotationLeft();
+
+        if (commandRepresentation == "der") return new RotationRight();
+
+        return new MovementForward(displacement);
+    }
+}
+
+public class JaxaCommandMapper : CommandMapper
+{
+    public Command CreateCommand(int displacement, string commandRepresentation)
     {
         if (commandRepresentation == "at") return new MovementBackward(displacement);
 

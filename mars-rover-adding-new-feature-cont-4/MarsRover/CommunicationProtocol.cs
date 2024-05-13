@@ -7,10 +7,12 @@ namespace MarsRover;
 public abstract class CommunicationProtocol
 {
     private readonly CommandExtractor _commandExtractor;
-
-    protected CommunicationProtocol(CommandExtractor commandExtractor)
+    private readonly CommandMapper _commandMapper;
+    
+    protected CommunicationProtocol(CommandExtractor commandExtractor, CommandMapper commandMapper)
     {
         _commandExtractor = commandExtractor;
+        _commandMapper = commandMapper;
     }
 
     public virtual List<Command> CreateCommands(string commandsSequence, int displacement)

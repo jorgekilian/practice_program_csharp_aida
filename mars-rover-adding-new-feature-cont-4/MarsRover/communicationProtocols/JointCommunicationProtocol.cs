@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace MarsRover.communicationProtocols;
 
 public class JointCommunicationProtocol : CommunicationProtocol {
-    public JointCommunicationProtocol() : base(null) { }
+    public JointCommunicationProtocol() : base(null, null) { }
     public override List<Command> CreateCommands(string commandsSequence, int displacement) {
         if (commandsSequence == string.Empty) {
             return new List<Command>();
