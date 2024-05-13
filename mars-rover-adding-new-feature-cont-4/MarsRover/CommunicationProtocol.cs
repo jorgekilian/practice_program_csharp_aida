@@ -19,9 +19,7 @@ public abstract class CommunicationProtocol
     {
         var commandRepresentations = _commandExtractor.Extract(commandsSequence);
         return commandRepresentations
-            .Select(commandRepresentation => CreateCommand(displacement, commandRepresentation))
+            .Select(commandRepresentation => _commandMapper.CreateCommand(displacement, commandRepresentation))
             .ToList();
     }
-
-    protected abstract Command CreateCommand(int displacement, string commandRepresentation);
 }

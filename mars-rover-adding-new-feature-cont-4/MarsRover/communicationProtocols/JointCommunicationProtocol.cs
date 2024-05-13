@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MarsRover.communicationProtocols;
 
@@ -35,9 +34,5 @@ public class JointCommunicationProtocol : CommunicationProtocol {
 
         return new UnknownProtocol();
 
-    }
-
-    protected override Command CreateCommand(int displacement, string commandRepresentation) {
-        throw new NotImplementedException();
     }
 }
