@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace LegacySecurityManager.Tests
 {
-    public class LegacySecurityManagerTest
+    public class SecurityManagerTest
     {
         [Test]
         public void Canary_Test()
