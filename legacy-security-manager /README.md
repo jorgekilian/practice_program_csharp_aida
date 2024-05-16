@@ -1,3 +1,3 @@
-# Shopping Cart
+# Legacy Security Manager
 
-A kata to practice TDD with test doubles.
+A kata to practice dependency-breaking techniques.
