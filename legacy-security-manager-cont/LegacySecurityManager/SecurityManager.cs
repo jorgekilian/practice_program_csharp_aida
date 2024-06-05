@@ -4,8 +4,8 @@ namespace LegacySecurityManager;
 
 public class SecurityManager
 {
-    private readonly Notifier _notifier;
     private readonly InputReader _inputReader;
+    private readonly Notifier _notifier;
 
     public SecurityManager(Notifier notifier, InputReader inputReader)
     {
@@ -53,7 +53,7 @@ public class SecurityManager
 
     private static string EncryptPassword(string password)
     {
-        char[] array = password.ToCharArray();
+        var array = password.ToCharArray();
         Array.Reverse(array);
         var encryptedPassword = new string(array);
         return encryptedPassword;
