@@ -4,36 +4,33 @@ namespace LegacySecurityManager;
 
 public class SecurityManager
 {
-    private readonly InputReader _inputReader;
     private readonly Notifier _notifier;
+    private UserDataRequester _userDataRequester;
 
-    public SecurityManager(Notifier notifier, InputReader inputReader)
+    public SecurityManager(Notifier notifier, UserDataRequester userDataRequester)
     {
         _notifier = notifier;
-        _inputReader = inputReader;
+        _userDataRequester = userDataRequester;
     }
 
     public void CreateValidUser()
     {
-        var username = RequestUserName();
-        var fullName = RequestFullName();
-        var password = RequestPassword();
-        var confirmPassword = RequestPasswordConfirmation();
+        var userData = _userDataRequester.Request();
 
-        if (PasswordsDoNotMatch(password, confirmPassword))
+        if (PasswordsDoNotMatch(userData.Password(), userData.ConfirmPassword()))
         {
             NotifyPasswordDoNotMatch();
             return;
         }
 
-        if (IsPasswordToShort(password))
+        if (IsPasswordToShort(userData.Password()))
         {
             NotifyPasswordIsToShort();
             return;
         }
 
-        var encryptedPassword = EncryptPassword(password);
-        NotifyUserCreation(username, fullName, encryptedPassword);
+        var encryptedPassword = EncryptPassword(userData.Password());
+        NotifyUserCreation(userData.UserName(), userData.FullName(), encryptedPassword);
     }
 
     private void NotifyPasswordIsToShort()
@@ -69,6 +66,71 @@ public class SecurityManager
         return password != confirmPassword;
     }
 
+    private void Print(string message)
+    {
+        _notifier.Notify(message);
+    }
+
+    public static void CreateUser() {
+        Notifier notifier = new ConsoleNotifier();
+        InputReader inputReader = new ConsoleInputReader();
+        new SecurityManager(notifier, new ConsoleUserDataRequester(notifier, inputReader)).CreateValidUser();
+    }
+}
+
+public class UserData {
+    private readonly string _username;
+    private readonly string _fullName;
+    private readonly string _password;
+    private readonly string _confirmPassword;
+
+    public UserData(string username, string fullName, string password, string confirmPassword) {
+        _username = username;
+        _fullName = fullName;
+        _password = password;
+        _confirmPassword = confirmPassword;
+    }
+
+    public string Password() {
+        return _password;
+    }
+
+    public string ConfirmPassword() {
+        return _confirmPassword;
+    }
+
+    public string UserName() {
+        return _username;
+    }
+
+    public string FullName() {
+        return _fullName;
+    }
+}
+
+public interface UserDataRequester {
+    UserData Request();
+}
+
+public class ConsoleUserDataRequester : UserDataRequester {
+    private readonly Notifier notifier;
+    private readonly InputReader inputReader;
+
+    public ConsoleUserDataRequester(Notifier notifier, InputReader inputReader) {
+        this.notifier = notifier;
+        this.inputReader = inputReader;
+    }
+    public UserData Request() {
+
+        return new UserData(RequestUserName(), RequestFullName(), RequestPassword(), RequestPasswordConfirmation());
+    }
+
+    private string RequestUserInput(string requestMessage)
+    {
+        notifier.Notify(requestMessage);
+        return inputReader.Read();
+    }
+
     private string RequestPasswordConfirmation()
     {
         return RequestUserInput("Re-enter your password");
@@ -89,24 +151,4 @@ public class SecurityManager
         return RequestUserInput("Enter a username");
     }
 
-    private string RequestUserInput(string requestMessage)
-    {
-        Print(requestMessage);
-        return ReadUserInput();
-    }
-
-    private void Print(string message)
-    {
-        _notifier.Notify(message);
-    }
-
-    private string ReadUserInput()
-    {
-        return _inputReader.Read();
-    }
-
-    public static void CreateUser()
-    {
-        new SecurityManager(new ConsoleNotifier(), new ConsoleInputReader()).CreateValidUser();
-    }
 }
