@@ -73,7 +73,6 @@ public class SecurityManager
 
     public static void CreateUser() {
         Notifier notifier = new ConsoleNotifier();
-        InputReader inputReader = new ConsoleInputReader();
-        new SecurityManager(notifier, new ConsoleUserDataRequester(new ConsoleInput(notifier, inputReader))).CreateValidUser();
+        new SecurityManager(notifier, new ConsoleUserDataRequester(new ConsoleInput())).CreateValidUser();
     }
 }
