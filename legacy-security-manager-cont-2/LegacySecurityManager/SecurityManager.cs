@@ -18,6 +18,7 @@ public class SecurityManager
     {
         var userData = _userDataRequester.Request();
 
+
         if (PasswordsDoNotMatch(userData.Password(), userData.ConfirmPassword()))
         {
             NotifyPasswordDoNotMatch();
