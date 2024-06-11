@@ -13,16 +13,28 @@ public class HelloKata {
 
         var hour = clock.GetHour();
 
-        if (hour > 6 && hour <= 12) {
-            notifier.Notify("Buenas días");
+        if (IsMorning(hour)) {
+            Greet("Buenas días");
             return;
         }
 
-        if (hour > 12 && hour <= 20) {
-            notifier.Notify("Buenas tardes");
+        if (IsAfternoon(hour)) {
+            Greet("Buenas tardes");
             return;
         }
 
-        notifier.Notify("Buenas noches");
+        Greet("Buenas noches");
+    }
+
+    private static bool IsAfternoon(decimal hour) {
+        return hour > 12 && hour <= 20;
+    }
+
+    private static bool IsMorning(decimal hour) {
+        return hour > 6 && hour <= 12;
+    }
+
+    private void Greet(string message) {
+        notifier.Notify(message);
     }
 }
