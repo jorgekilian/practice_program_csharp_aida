@@ -13,8 +13,13 @@ public class HelloKata {
 
         var hour = myHour.Get();
 
-        if (hour > 6 && hour < 12) {
+        if (hour > 6 && hour <= 12) {
             notifier.Notify("Buenas días");
+            return;
+        }
+
+        if (hour > 12 && hour < 20) {
+            notifier.Notify("Buenas tardes");
             return;
         }
 

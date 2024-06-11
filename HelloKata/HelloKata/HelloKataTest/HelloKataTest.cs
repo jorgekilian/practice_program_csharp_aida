@@ -46,5 +46,16 @@ namespace HelloKata.Test {
             _notifier.Received(1).Notify("Buenas días");
         }
 
+        [Test]
+        public void greet_with_good_afternoo() {
+            _myHour.Get().Returns(18);
+
+            var helloKata = new HelloKata(_notifier, _myHour);
+
+
+            helloKata.Hello();
+
+            _notifier.Received(1).Notify("Buenas tardes");
+        }
     }
 }
