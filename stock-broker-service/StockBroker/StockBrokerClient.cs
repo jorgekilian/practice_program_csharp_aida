@@ -12,7 +12,12 @@ public class StockBrokerClient {
     }
 
     public void PlaceOrders(string ordersSequence) {
-        this.notifier.Notify("12/20/2023 1:45 AM Buy: € 248724.00, Sell: € 0.00");
+        if (ordersSequence.EndsWith("B")) {
+            this.notifier.Notify("12/20/2023 1:45 AM Buy: € 248724.00, Sell: € 0.00");
+        }
+        else {
+            this.notifier.Notify("12/20/2023 1:45 AM Buy: € 0.00, Sell: € 248724.00");
+        }
 
     }
 }
