@@ -29,20 +29,4 @@ namespace HelloKata.Test {
         }
 
     }
-
-    public interface Notifier {
-        void Notify(string greetMessage);
-    }
-
-    public class HelloKata {
-        private readonly Notifier notifier;
-
-        public HelloKata(Notifier notifier) {
-            this.notifier = notifier;
-        }
-
-        public void Hello() {
-            notifier.Notify("Buenas noches");
-        }
-    }
 }
