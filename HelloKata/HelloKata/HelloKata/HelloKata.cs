@@ -2,16 +2,16 @@
 
 public class HelloKata {
     private readonly Notifier notifier;
-    private readonly MyHour myHour;
+    private readonly Clock clock;
 
-    public HelloKata(Notifier notifier, MyHour myHour) {
+    public HelloKata(Notifier notifier, Clock clock) {
         this.notifier = notifier;
-        this.myHour = myHour;
+        this.clock = clock;
     }
 
     public void Hello() {
 
-        var hour = myHour.Get();
+        var hour = clock.GetHour();
 
         if (hour > 6 && hour <= 12) {
             notifier.Notify("Buenas días");
