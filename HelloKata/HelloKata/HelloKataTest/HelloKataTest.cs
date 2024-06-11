@@ -37,7 +37,7 @@ namespace HelloKata.Test {
 
             _helloKata.Hello();
 
-            _notifier.Received(1).Notify("Buenas días");
+            _notifier.Received(1).Notify("Buenos días");
         }
 
         [TestCase(12.01)]

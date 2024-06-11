@@ -12,18 +12,17 @@ public class HelloKata {
     public void Hello() {
 
         var hour = clock.GetHour();
+        var message = "Buenas noches";
 
         if (IsMorning(hour)) {
-            Greet("Buenas días");
-            return;
+            message = "Buenos días";
         }
 
         if (IsAfternoon(hour)) {
-            Greet("Buenas tardes");
-            return;
+            message = "Buenas tardes";
         }
 
-        Greet("Buenas noches");
+        Greet(message);
     }
 
     private static bool IsAfternoon(decimal hour) {
