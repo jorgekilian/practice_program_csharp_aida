@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using NSubstitute.Core;
 using NUnit.Framework;
 
 namespace HelloKata.Test {
@@ -15,17 +16,34 @@ namespace HelloKata.Test {
         // Notifier
         // ¿Uso horario?
         private Notifier _notifier;
+        private MyHour _myHour;
+
+        [SetUp]
+        public void SetUp() {
+            _notifier = Substitute.For<Notifier>();
+            _myHour = Substitute.For<MyHour>();
+        }
 
         [Test]
         public void greet_with_good_night() {
-
-            _notifier = Substitute.For<Notifier>();
-            var helloKata = new HelloKata(_notifier);
+            var helloKata = new HelloKata(_notifier, _myHour);
 
             helloKata.Hello();
 
             _notifier.Received(1).Notify("Buenas noches");
 
+        }
+
+        [Test]
+        public void greet_with_good_morning() {
+            _myHour.Get().Returns(8);
+
+            var helloKata = new HelloKata(_notifier, _myHour);
+            
+
+            helloKata.Hello();
+
+            _notifier.Received(1).Notify("Buenas días");
         }
 
     }
