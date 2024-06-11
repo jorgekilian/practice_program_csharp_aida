@@ -34,9 +34,10 @@ namespace HelloKata.Test {
 
         }
 
-        [Test]
-        public void greet_with_good_morning() {
-            _myHour.Get().Returns(8);
+        [TestCase(7)]
+        [TestCase(12)]
+        public void greet_with_good_morning(int hour) {
+            _myHour.Get().Returns(hour);
 
             var helloKata = new HelloKata(_notifier, _myHour);
             
@@ -46,9 +47,10 @@ namespace HelloKata.Test {
             _notifier.Received(1).Notify("Buenas días");
         }
 
-        [Test]
-        public void greet_with_good_afternoo() {
-            _myHour.Get().Returns(18);
+        [TestCase(13)]
+        [TestCase(20)]
+        public void greet_with_good_afternoo(int hour) {
+            _myHour.Get().Returns(hour);
 
             var helloKata = new HelloKata(_notifier, _myHour);
 
