@@ -8,11 +8,12 @@ namespace StockBroker.Tests {
         // * Una orden de tipo B
         // * Una orden de tipo S
         // * Dos ordenes de tipo B
-        // Dos ordenes de tipo S
-        // Dos ordenes, una de tipo B y otra de tipo S
-        // Tres ordenes, dos de tipo B y una de tipo S
-        // Tres ordenes, una de tipo B y dos de tipo S
-        // Cuatro ordenes, dos de tipo B y dos de tipo S
+        // * Dos ordenes de tipo S
+        // * Dos ordenes, una de tipo B y otra de tipo S
+        // -- Tres ordenes, dos de tipo B y una de tipo S
+        // -- Tres ordenes, una de tipo B y dos de tipo S
+        // -- Cuatro ordenes, dos de tipo B y dos de tipo S
+        // Confirmar que se llama al servicio 
         // Una orden que fallará
         // Dos ordenes y una fallará
         // Tres ordenes y dos fallaran
@@ -73,6 +74,14 @@ namespace StockBroker.Tests {
             stockBrokerClient.PlaceOrders("ZNGA 1300 2.78 S,AAPL 50 139.78 S");
 
             _notifier.Received(1).Notify("12/20/2023 1:45 AM Buy: € 0.00, Sell: € 10603.00");
+        }
+
+        [Test]
+        public void process_two_orders_one_type_orders_S_and_other_type_order_B() {
+
+            stockBrokerClient.PlaceOrders("ZNGA 1300 2.78 B,AAPL 50 139.78 S");
+
+            _notifier.Received(1).Notify("12/20/2023 1:45 AM Buy: € 3614.00, Sell: € 6989.00");
         }
     }
 

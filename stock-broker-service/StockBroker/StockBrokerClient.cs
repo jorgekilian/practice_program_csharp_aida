@@ -20,7 +20,7 @@ public class StockBrokerClient {
         decimal TotalB = 0;
         decimal TotalS = 0;
 
-        if (string.IsNullOrWhiteSpace(ordersSequence)) {
+        if (IsEmptyOrdersSequence(ordersSequence)) {
             ShowSummary(TotalB, TotalS);
             return;
         }
@@ -37,6 +37,11 @@ public class StockBrokerClient {
         ShowSummary(TotalB, TotalS);
 
     }
+
+    private static bool IsEmptyOrdersSequence(string ordersSequence) {
+        return string.IsNullOrWhiteSpace(ordersSequence);
+    }
+
     private void ShowSummary(decimal TotalB, decimal TotalS) {
         notifier.Notify($"{dateTimeProvider.Now()} Buy: € {TotalB.ToString("0.00", new CultureInfo("en-US"))}, Sell: € {TotalS.ToString("0.00", new CultureInfo("en-US"))}");
     }
