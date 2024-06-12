@@ -13,11 +13,15 @@ public class StockBrokerClient {
 
     public void PlaceOrders(string ordersSequence) {
         if (ordersSequence.EndsWith("B")) {
-            notifier.Notify("12/20/2023 1:45 AM Buy: € 248724.00, Sell: € 0.00");
+            ShowSummary("Buy: € 248724.00, Sell: € 0.00");
         }
         if (ordersSequence.EndsWith("S")) {
-            notifier.Notify("12/20/2023 1:45 AM Buy: € 0.00, Sell: € 248724.00");
+            ShowSummary("Buy: € 0.00, Sell: € 248724.00");
         }
-        notifier.Notify("12/20/2023 1:45 AM Buy: € 0.00, Sell: € 0.00");
+        ShowSummary("Buy: € 0.00, Sell: € 0.00");
+    }
+
+    private void ShowSummary(string message) {
+        notifier.Notify($"{dateTimeProvider.Now()} {message}");
     }
 }

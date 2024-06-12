@@ -1,13 +1,12 @@
 using NSubstitute;
 using NUnit.Framework;
 
-namespace StockBroker.Tests
-{
-    public class StockBrokerServiceTest
-    {
+namespace StockBroker.Tests {
+    public class StockBrokerServiceTest {
         //Tests
-        // Una orden de tipo B
-        // Una orden de tipo S
+        // * Orden vacía
+        // * Una orden de tipo B
+        // * Una orden de tipo S
         // Dos ordenes de tipo B
         // Dos ordenes de tipo S
         // Dos ordenes, una de tipo B y otra de tipo S
@@ -26,16 +25,20 @@ namespace StockBroker.Tests
         DateTimeProvider _dateTimeProvider;
         StockBrokerService _stockBrokerService;
         Notifier _notifier;
+        private StockBrokerClient stockBrokerClient;
 
-
-        [Test]
-        public void process_one_type_order_B()
-        {
+        [SetUp]
+        public void Setup() {
             _notifier = Substitute.For<Notifier>();
             _stockBrokerService = Substitute.For<StockBrokerService>();
             _dateTimeProvider = Substitute.For<DateTimeProvider>();
-            var stockBrokerClient = new StockBrokerClient(_notifier, _stockBrokerService, _dateTimeProvider);
-            
+            _dateTimeProvider.Now().Returns("12/20/2023 1:45 AM");
+            stockBrokerClient = new StockBrokerClient(_notifier, _stockBrokerService, _dateTimeProvider);
+        }
+
+        [Test]
+        public void process_one_type_order_B() {
+
             stockBrokerClient.PlaceOrders("GOOG 300 829.08 B");
 
             _notifier.Received(1).Notify("12/20/2023 1:45 AM Buy: € 248724.00, Sell: € 0.00");
@@ -43,10 +46,6 @@ namespace StockBroker.Tests
 
         [Test]
         public void process_one_type_order_S() {
-            _notifier = Substitute.For<Notifier>();
-            _stockBrokerService = Substitute.For<StockBrokerService>();
-            _dateTimeProvider = Substitute.For<DateTimeProvider>();
-            var stockBrokerClient = new StockBrokerClient(_notifier, _stockBrokerService, _dateTimeProvider);
 
             stockBrokerClient.PlaceOrders("GOOG 300 829.08 S");
 
@@ -55,10 +54,6 @@ namespace StockBroker.Tests
 
         [Test]
         public void process_empty_order() {
-            _notifier = Substitute.For<Notifier>();
-            _stockBrokerService = Substitute.For<StockBrokerService>();
-            _dateTimeProvider = Substitute.For<DateTimeProvider>();
-            var stockBrokerClient = new StockBrokerClient(_notifier, _stockBrokerService, _dateTimeProvider);
 
             stockBrokerClient.PlaceOrders("");
 

@@ -1,3 +1,5 @@
 namespace StockBroker;
 
-public interface DateTimeProvider { }
+public interface DateTimeProvider {
+    string Now();
+}
