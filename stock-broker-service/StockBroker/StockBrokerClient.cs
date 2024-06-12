@@ -20,8 +20,8 @@ public class StockBrokerClient {
         decimal TotalB = 0;
         decimal TotalS = 0;
 
-        if (!(ordersSequence.EndsWith("B") || ordersSequence.EndsWith("S"))) {
-            ShowSummary("Buy: € 0.00, Sell: € 0.00");
+        if (string.IsNullOrWhiteSpace(ordersSequence)) {
+            ShowSummary(TotalB, TotalS);
             return;
         }
         var transactions = ParseTransactions(ordersSequence);
@@ -34,8 +34,11 @@ public class StockBrokerClient {
                 TotalS += (decimal)(transaction.Quantity * transaction.Price);
             }
         }
-        ShowSummary($"Buy: € {TotalB.ToString("0.00", new CultureInfo("en-US"))}, Sell: € {TotalS.ToString("0.00", new CultureInfo("en-US"))}");
+        ShowSummary(TotalB, TotalS);
 
+    }
+    private void ShowSummary(decimal TotalB, decimal TotalS) {
+        notifier.Notify($"{dateTimeProvider.Now()} Buy: € {TotalB.ToString("0.00", new CultureInfo("en-US"))}, Sell: € {TotalS.ToString("0.00", new CultureInfo("en-US"))}");
     }
 
     private IEnumerable<Transaction> ParseTransactions(string input) {
@@ -59,9 +62,6 @@ public class StockBrokerClient {
         return transactions;
     }
 
-    private void ShowSummary(string message) {
-        notifier.Notify($"{dateTimeProvider.Now()} {message}");
-    }
 
 }
 
