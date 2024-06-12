@@ -1,3 +1,5 @@
 namespace StockBroker;
 
-public interface StockBrokerService { }
+public interface StockBrokerService {
+    void Process(Transaction order);
+}

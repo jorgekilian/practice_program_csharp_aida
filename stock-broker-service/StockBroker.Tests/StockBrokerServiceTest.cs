@@ -83,6 +83,13 @@ namespace StockBroker.Tests {
 
             _notifier.Received(1).Notify("12/20/2023 1:45 AM Buy: € 3614.00, Sell: € 6989.00");
         }
+
+        [Test]
+        public void send_the_orders_to_service_broker() {
+            stockBrokerClient.PlaceOrders("ZNGA 1300 2.78 B,AAPL 50 139.78 S");
+
+            _stockBrokerService.Received(2).Process(Arg.Any<Transaction>());
+        }
     }
 
 

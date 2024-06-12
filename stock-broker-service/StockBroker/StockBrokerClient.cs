@@ -33,6 +33,7 @@ public class StockBrokerClient {
             if (transaction.Action == 'S') {
                 TotalS += (decimal)(transaction.Quantity * transaction.Price);
             }
+            stockBrokerService.Process(transaction);
         }
         ShowSummary(TotalB, TotalS);
 
