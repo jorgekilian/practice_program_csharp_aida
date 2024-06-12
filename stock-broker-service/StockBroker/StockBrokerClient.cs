@@ -30,12 +30,11 @@ public class StockBrokerClient {
             if (transaction.Action == 'B') {
                 TotalB += (decimal)(transaction.Quantity * transaction.Price);
             }
+            if (transaction.Action == 'S') {
+                TotalS += (decimal)(transaction.Quantity * transaction.Price);
+            }
         }
-        if (ordersSequence.EndsWith("S")) {
-            ShowSummary("Buy: € 0.00, Sell: € 248724.00");
-            return;
-        }
-        ShowSummary($"Buy: € {TotalB.ToString("0.00", new CultureInfo("en-US"))}, Sell: € 0.00");
+        ShowSummary($"Buy: € {TotalB.ToString("0.00", new CultureInfo("en-US"))}, Sell: € {TotalS.ToString("0.00", new CultureInfo("en-US"))}");
 
     }
 
