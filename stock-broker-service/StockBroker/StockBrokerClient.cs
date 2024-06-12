@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
 using System.Transactions;
@@ -21,22 +22,27 @@ public class StockBrokerClient {
         decimal TotalS = 0;
 
         if (IsEmptyOrdersSequence(ordersSequence)) {
-            ShowSummary(TotalB, TotalS);
+            ShowSummary(0, 0);
             return;
         }
         var transactions = ParseTransactions(ordersSequence);
 
         foreach (var transaction in transactions) {
+            var transactionTotal = CalculateTotal(transaction);
             if (transaction.Action == 'B') {
-                TotalB += (decimal)(transaction.Quantity * transaction.Price);
+                TotalB += transactionTotal;
             }
             if (transaction.Action == 'S') {
-                TotalS += (decimal)(transaction.Quantity * transaction.Price);
+                TotalS += transactionTotal;
             }
             stockBrokerService.Process(transaction);
         }
         ShowSummary(TotalB, TotalS);
 
+    }
+
+    private static decimal CalculateTotal(Transaction transaction) {
+        return (decimal)(transaction.Quantity * transaction.Price);
     }
 
     private static bool IsEmptyOrdersSequence(string ordersSequence) {

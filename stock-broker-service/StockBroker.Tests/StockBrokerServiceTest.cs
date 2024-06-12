@@ -13,7 +13,7 @@ namespace StockBroker.Tests {
         // -- Tres ordenes, dos de tipo B y una de tipo S
         // -- Tres ordenes, una de tipo B y dos de tipo S
         // -- Cuatro ordenes, dos de tipo B y dos de tipo S
-        // Confirmar que se llama al servicio 
+        // * Confirmar que se llama al servicio 
         // Una orden que fallará
         // Dos ordenes y una fallará
         // Tres ordenes y dos fallaran
