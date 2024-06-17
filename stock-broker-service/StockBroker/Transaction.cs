@@ -5,6 +5,7 @@ public record Transaction {
     public int Quantity { get; init; }
     public double Price { get; init; }
     public char Action { get; init; }
+    public bool Failed { get; private set; }
 
     public decimal CalculateTotal() {
         return (decimal)(Quantity * Price);
@@ -16,5 +17,9 @@ public record Transaction {
 
     public bool IsSellTransaction() {
         return Action.Equals('S');
+    }
+
+    public void HasFailed() {
+        Failed = true;
     }
 }

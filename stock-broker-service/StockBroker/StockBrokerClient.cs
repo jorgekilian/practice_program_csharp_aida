@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Transactions;
 
 namespace StockBroker;
@@ -17,25 +20,33 @@ public class StockBrokerClient {
     }
 
     public void PlaceOrders(string ordersSequence) {
-        if (IsEmptyOrdersSequence(ordersSequence)) {
-            ShowSummary(0, 0);
-            return;
-        }
         var transactions = Transactions.ParseTransactions(ordersSequence);
 
         foreach (var transaction in transactions.AllTransactions) {
-            stockBrokerService.Process(transaction);
+            try {
+                stockBrokerService.Process(transaction);
+            }
+            catch (Exception e) {
+                transaction.HasFailed();
+            }
+            
         }
         
-        ShowSummary(transactions.CalculateBuy(), transactions.CalculateSell());
+        ShowSummary(transactions);
 
     }
 
-    private static bool IsEmptyOrdersSequence(string ordersSequence) {
-        return string.IsNullOrWhiteSpace(ordersSequence);
+    private void ShowSummary(Transactions transactions) {
+        var TotalBuy = transactions.CalculateBuy().ToString("0.00", new CultureInfo("en-US"));
+        var TotalSell = transactions.CalculateSell().ToString("0.00", new CultureInfo("en-US"));
+        var FailedTransactions = GetFailedMessage(transactions.GetFailedTransactions());
+
+        notifier.Notify($"{dateTimeProvider.Now()} Buy: € {TotalBuy}, Sell: € {TotalSell}{FailedTransactions}");
     }
 
-    private void ShowSummary(decimal TotalB, decimal TotalS) {
-        notifier.Notify($"{dateTimeProvider.Now()} Buy: € {TotalB.ToString("0.00", new CultureInfo("en-US"))}, Sell: € {TotalS.ToString("0.00", new CultureInfo("en-US"))}");
+    private string GetFailedMessage(IEnumerable<Transaction> failedTransactions) {
+        if (!failedTransactions.Any()) return string.Empty;
+
+        return $", Failed: {string.Join(", ",failedTransactions.Select(x => x.Symbol))}";
     }
 }

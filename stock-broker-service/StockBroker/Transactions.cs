@@ -16,6 +16,10 @@ public class Transactions {
     public static Transactions ParseTransactions(string input) {
         Transactions transactions = new Transactions();
 
+        if (string.IsNullOrWhiteSpace(input)) {
+            return transactions;
+        }
+
         var parts = input.Split(',');
 
         foreach (var part in parts) {
@@ -35,11 +39,15 @@ public class Transactions {
     }
 
     public decimal CalculateBuy() {
-        return _transactions.Where(x => x.IsBuyTransaction()).Sum(x => x.CalculateTotal());
+        return _transactions.Where(x => x.IsBuyTransaction() && !x.Failed).Sum(x => x.CalculateTotal());
     }
 
 
     public decimal CalculateSell() {
-        return _transactions.Where(x => x.IsSellTransaction()).Sum(x => x.CalculateTotal());
+        return _transactions.Where(x => x.IsSellTransaction() && !x.Failed).Sum(x => x.CalculateTotal());
+    }
+
+    public IEnumerable<Transaction> GetFailedTransactions() {
+        return _transactions.Where(x => x.Failed);
     }
 }
