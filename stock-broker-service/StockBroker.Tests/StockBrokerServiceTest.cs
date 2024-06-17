@@ -45,7 +45,7 @@ namespace StockBroker.Tests {
             _notifier.Received(1).Notify("12/20/2023 1:45 AM Buy: € 0.00, Sell: € 0.00");
         }
         [Test]
-        public void process_one_type_order_B() {
+        public void process_one_type_order_buy() {
 
             stockBrokerClient.PlaceOrders("GOOG 300 829.08 B");
 
@@ -53,7 +53,7 @@ namespace StockBroker.Tests {
         }
 
         [Test]
-        public void process_one_type_order_S() {
+        public void process_one_type_order_sell() {
 
             stockBrokerClient.PlaceOrders("GOOG 300 829.08 S");
 
@@ -61,7 +61,7 @@ namespace StockBroker.Tests {
         }
 
         [Test]
-        public void process_two_types_orders_B() {
+        public void process_two_types_orders_buy() {
 
             stockBrokerClient.PlaceOrders("ZNGA 1300 2.78 B,AAPL 50 139.78 B");
 
@@ -69,7 +69,7 @@ namespace StockBroker.Tests {
         }
 
         [Test]
-        public void process_two_types_orders_S() {
+        public void process_two_types_orders_sell() {
 
             stockBrokerClient.PlaceOrders("ZNGA 1300 2.78 S,AAPL 50 139.78 S");
 
@@ -77,7 +77,7 @@ namespace StockBroker.Tests {
         }
 
         [Test]
-        public void process_two_orders_one_type_orders_S_and_other_type_order_B() {
+        public void process_two_orders_one_type_orders_sell_and_other_type_order_buy() {
 
             stockBrokerClient.PlaceOrders("ZNGA 1300 2.78 B,AAPL 50 139.78 S");
 

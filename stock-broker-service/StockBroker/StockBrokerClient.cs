@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
@@ -18,31 +17,18 @@ public class StockBrokerClient {
     }
 
     public void PlaceOrders(string ordersSequence) {
-        decimal TotalB = 0;
-        decimal TotalS = 0;
-
         if (IsEmptyOrdersSequence(ordersSequence)) {
             ShowSummary(0, 0);
             return;
         }
-        var transactions = ParseTransactions(ordersSequence);
+        var transactions = Transactions.ParseTransactions(ordersSequence);
 
-        foreach (var transaction in transactions) {
-            var transactionTotal = CalculateTotal(transaction);
-            if (transaction.Action == 'B') {
-                TotalB += transactionTotal;
-            }
-            if (transaction.Action == 'S') {
-                TotalS += transactionTotal;
-            }
+        foreach (var transaction in transactions.AllTransactions) {
             stockBrokerService.Process(transaction);
         }
-        ShowSummary(TotalB, TotalS);
+        
+        ShowSummary(transactions.CalculateBuy(), transactions.CalculateSell());
 
-    }
-
-    private static decimal CalculateTotal(Transaction transaction) {
-        return (decimal)(transaction.Quantity * transaction.Price);
     }
 
     private static bool IsEmptyOrdersSequence(string ordersSequence) {
@@ -52,27 +38,4 @@ public class StockBrokerClient {
     private void ShowSummary(decimal TotalB, decimal TotalS) {
         notifier.Notify($"{dateTimeProvider.Now()} Buy: € {TotalB.ToString("0.00", new CultureInfo("en-US"))}, Sell: € {TotalS.ToString("0.00", new CultureInfo("en-US"))}");
     }
-
-    private IEnumerable<Transaction> ParseTransactions(string input) {
-        var transactions = new List<Transaction>();
-
-        var parts = input.Split(',');
-
-        foreach (var part in parts) {
-            var elements = part.Split(' ');
-
-            var transaction = new Transaction {
-                Symbol = elements[0],
-                Quantity = int.Parse(elements[1]),
-                Price = double.Parse(elements[2], CultureInfo.InvariantCulture),
-                Action = char.Parse(elements[3])
-            };
-
-            transactions.Add(transaction);
-        }
-
-        return transactions;
-    }
-
-
 }
