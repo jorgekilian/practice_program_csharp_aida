@@ -4,10 +4,10 @@ public class Checkout
 {
     private readonly IEmailService _emailService;
 
-    private readonly IUserConfirmation _newsLetterSubscribed;
+    private readonly UserConfirmation _newsLetterSubscribed;
     private readonly Product _product;
 
-    private readonly IUserConfirmation _termsAndConditionsAccepted;
+    private readonly UserConfirmation _termsAndConditionsAccepted;
 
     public Checkout(Product product, IEmailService emailService)
     {
@@ -19,11 +19,11 @@ public class Checkout
             "(Mandatory to place order for " + product + ")");
     }
 
-    protected virtual IUserConfirmation CreateUserConfirmation(string textMessage) {
+    protected virtual UserConfirmation CreateUserConfirmation(string textMessage) {
         return new UserConfirmation(textMessage);
     }
 
-    public virtual void ConfirmOrder()
+    public void ConfirmOrder()
     {
         if (!_termsAndConditionsAccepted.WasAccepted()) throw new OrderCancelledException(_product);
         if (_newsLetterSubscribed.WasAccepted()) _emailService.SubscribeUserFor(_product);
