@@ -5,12 +5,28 @@ namespace Checkout.Tests;
 public class CheckoutTest
 {
     [Test]
-    public void Fix_Me()
+    public void checkout_create_and_store_receipt()
     {
-        var checkout = new Checkout();
+        var checkout = new ForTestingCheckout();
 
-        checkout.CreateReceipt(new Money(12));
+        var receipt = checkout.CreateReceipt(new Money(12));
+        var expectedReceived = new Receipt(new Money(12m), new Money(2.4m), new Money(14.4m));
 
-        Assert.That(checkout, Is.Not.Null);
+        Assert.That(checkout.storedReceipts.First(), Is.EqualTo(expectedReceived));
+        Assert.That(receipt, Is.EqualTo(expectedReceived));
+
+    }
+
+
+    public class ForTestingCheckout : Checkout {
+        public List<Receipt> storedReceipts;
+
+        public ForTestingCheckout() {
+            storedReceipts = new List<Receipt>();
+        }
+
+        protected override void StoreReceipt(Receipt receipt) {
+            storedReceipts.Add(receipt);
+        }
     }
 }
