@@ -12,12 +12,12 @@ public class MarketingCampaign
         return DayOfTheWeek().Equals(DayOfWeek.Friday);
     }
 
-    private long MilliSeconds()
+    protected virtual long MilliSeconds()
     {
         return (long)DateTime.Now.TimeOfDay.TotalMilliseconds;
     }
 
-    private DayOfWeek DayOfTheWeek()
+    protected virtual DayOfWeek DayOfTheWeek()
     {
         return DateTime.Now.DayOfWeek;
     }
