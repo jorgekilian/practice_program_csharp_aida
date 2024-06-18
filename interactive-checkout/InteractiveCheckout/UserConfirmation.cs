@@ -1,7 +1,6 @@
 namespace InteractiveCheckout;
 
-public class UserConfirmation
-{
+public class UserConfirmation : IUserConfirmation {
     private readonly bool _accepted;
 
     public UserConfirmation(string message)
